@@ -14,6 +14,16 @@ body {
   color: #fff;
 }
 
+/*  
+ *********************************************************************
+
+
+                                Nav-Bar
+ 
+
+***********************************************************************
+ */
+
 header {
   display: flex;
   flex-direction: row;
@@ -76,6 +86,15 @@ header {
 .nav-toggle:hover {
   transform: rotate(180deg);
 }
+/*  
+ *********************************************************************
+
+
+                               First Section
+ 
+
+***********************************************************************
+ */
 
 #first-section {
   margin: 50px 0;
@@ -95,6 +114,73 @@ header {
   font-size: 18px;
   font-family: "Inter", sans-serif;
 }
+/*  
+ *********************************************************************
+
+
+                             Company- section
+ 
+
+***********************************************************************
+ */
+
+#company-section {
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+.first-images,
+.second-images {
+  width: 50%;
+  height: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+/*  
+ *********************************************************************
+
+
+                            Web- section
+ 
+
+***********************************************************************
+ */
+#web-section {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-around;
+  width: 100%;
+}
+.spense,
+.yelpCamp {
+  width: 40%;
+  display: flex;
+  flex-direction: column;
+  margin: 30px 0;
+}
+.spense h1,
+.yelpCamp h1 {
+  font-family: "Prata", serif;
+  font-size: 40px;
+  font-weight: 200;
+  margin: 20px 0;
+}
+.spense p,
+.yelpCamp p {
+  font-size: 18px;
+  font-family: "Inter", sans-serif;
+  color: #bfc0c0;
+}
+/*  
+ *********************************************************************
+
+
+                             Media quries: 915px
+ 
+
+***********************************************************************
+ */
 @media screen and (max-width: 915px) {
   .nav-toggle {
     display: flex;
@@ -132,12 +218,65 @@ header {
   .show-list li a {
     color: black;
   }
+  #company-section {
+    flex-direction: row;
+    width: 95%;
+  }
+  .first-images,
+  .second-images {
+    flex-direction: column;
+    width: 100%;
+    height: auto;
+  }
+  .first-images img,
+  .second-images img {
+    margin: 20px 0;
+  }
+  .spense h1,
+  .yelpCamp h1 {
+    font-size: 35px;
+  }
 }
+/*  
+ *********************************************************************
+
+
+                             Media quries: 768px
+ 
+
+***********************************************************************
+ */
 @media screen and (max-width: 768px) {
   #first-section h1 {
     font-size: 65px;
   }
+  #web-section {
+    flex-direction: column;
+    align-items: center;
+  }
+  .spense,
+  .yelpCamp {
+    align-items: flex-start;
+    width: 90%;
+  }
+  .spense img,
+  .yelpCamp img {
+    width: 100%;
+  }
+  .spense p,
+  .yelpCamp p {
+    font-size: 18px;
+  }
 }
+/*  
+ *********************************************************************
+
+
+                             Media quries: 550px
+ 
+
+***********************************************************************
+ */
 
 @media screen and (max-width: 550px) {
   #first-section h1 {
@@ -150,8 +289,39 @@ header {
     font-size: 18px;
   }
 }
+/*  
+ *********************************************************************
+
+
+                             Media quries: 450px
+ 
+
+***********************************************************************
+ */
+@media screen and (max-width: 450px) {
+}
+/*  
+ *********************************************************************
+
+
+                             Media quries: 375px
+ 
+
+***********************************************************************
+ */
 @media screen and (max-width: 375px) {
   #first-section h1 {
+    font-size: 30px;
+  }
+  #first-section p {
+    font-size: 14px;
+  }
+  .spense p,
+  .yelpCamp p {
+    font-size: 14px;
+  }
+  .spense h1,
+  .yelpCamp h1 {
     font-size: 30px;
   }
 }
