@@ -151,6 +151,7 @@ header {
   align-items: flex-start;
   justify-content: space-around;
   width: 100%;
+  margin: 100px 0;
 }
 .spense,
 .yelpCamp {
@@ -179,15 +180,14 @@ header {
                             Comment- section
  
 
-***********************************************************************
- */
+*********************************************************************** */
 
 .comment-section {
   display: flex;
   width: 100%;
   background-color: #25292d;
   /* background-color: #343a40; */
-  margin-top: 20px;
+  margin: 100px 0;
   justify-content: space-around;
 }
 
@@ -198,15 +198,109 @@ header {
 .text-1 h1 {
   font-family: "Prata", serif;
   font-weight: 200;
-  margin-top: 10px;
+  margin-top: 40px;
   font-size: 40px;
 }
 .text-1 p,
 .text-2 p {
   font-size: 18px;
+  margin: 50px 0;
+  font-family: "Inter", sans-serif;
+  color: #bfc0c0;
+}
+/*  
+ *********************************************************************
+
+
+                            last Section
+ 
+
+***********************************************************************
+ */
+
+.last-section {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  margin: 100px 0;
+}
+.text-3 {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 90%;
+}
+.text-3 h1 {
+  font-family: "Prata", serif;
+  font-weight: 200;
+  margin-top: 10px;
+  font-size: 40px;
+}
+
+.text-3 p {
+  font-size: 18px;
   margin: 30px 0;
   font-family: "Inter", sans-serif;
   color: #bfc0c0;
+}
+
+.btn-2 {
+  width: 150px;
+  height: 50px;
+  outline: none;
+  border: none;
+  background-color: #ffb703;
+  font-family: "Inter", sans-serif;
+  font-size: 16px;
+  cursor: pointer;
+}
+.btn-2:hover {
+  opacity: 0.9;
+}
+/*  
+ *********************************************************************
+
+
+                        Footer
+ 
+
+***********************************************************************
+ */
+footer {
+  display: flex;
+  height: 5em;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  background-color: #25292d;
+}
+footer h2 {
+  font-family: "Prata", serif;
+  font-weight: 200;
+  margin-left: 30px;
+  font-size: 25px;
+}
+
+#social-media {
+  margin-right: 30px;
+}
+#social-media ul {
+  display: flex;
+}
+#social-media ul li {
+  list-style: none;
+}
+#social-media ul li a {
+  list-style: none;
+  cursor: pointer;
+  margin: 0 10px;
+}
+#social-media img {
+  transition: all 0.4s ease;
+}
+#social-media img:hover {
+  transform: translateY(-9px);
 }
 
 /*  
@@ -335,21 +429,19 @@ header {
   #nav h2 {
     font-size: 18px;
   }
-  .text-1 h1 {
-    font-size: 35px;
+
+  footer h2 {
+    margin-left: 20px;
+    font-size: 20px;
+  }
+  #social-media {
+    margin-right: 20px;
+  }
+  .text-3 p {
+    font-size: 16px;
   }
 }
-/*  
- *********************************************************************
 
-
-                             Media quries: 450px
- 
-
-***********************************************************************
- */
-@media screen and (max-width: 450px) {
-}
 /*  
  *********************************************************************
 
