@@ -13,6 +13,16 @@ body {
   background-color: black;
   color: #fff;
 }
+::-webkit-scrollbar {
+  width: 5px;
+}
+::-webkit-scrollbar-track {
+  border-radius: 30px;
+}
+::-webkit-scrollbar-thumb {
+  background-color: #ced4da;
+  border-radius: 30px;
+}
 
 /*  
  *********************************************************************
