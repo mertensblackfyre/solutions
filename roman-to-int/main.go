@@ -1,8 +1,11 @@
 package main
 
-import "fmt"
+import (
+	"strings"
+)
 
 func romanToInt(s string) int {
+
 	roman := map[string]int{
 		"I": 1,
 		"V": 5,
@@ -13,22 +16,25 @@ func romanToInt(s string) int {
 		"M": 1000,
 	}
 
-	for i := 0; i < len(s); i++ {
-		_, prs := roman[s]
-		fmt.Println(prs)
-		// if roman[s] {
-			
-		// }
-		// fmt.Printf("%c\n", s[i])
+	res := strings.Split(s, "")
+	sum := 0
+	for i := 0; i < len(res); i++ {
+		var l int
+		var k int
+		k = roman[res[i]]
+		if i-1 != -1 {
+			l = roman[res[i-1]]
+		}
+		if l < k {
+			sum = sum - l + (k - l)
+		} else {
+			sum += k
+		}
 	}
 
-	for k, v := range roman {
-		fmt.Println(k, v)
-	}
-
-	return 1
+	return sum
 }
 func main() {
-	romanToInt("III")
+	romanToInt("MCMXCIV")
 
 }
