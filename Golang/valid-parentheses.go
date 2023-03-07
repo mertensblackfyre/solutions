@@ -25,7 +25,7 @@ func isValid(s string) bool {
 	return t
 }
 func main() {
+	
 	t := isValid("[)")
 	fmt.Println(t)
-
 }

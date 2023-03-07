@@ -9,8 +9,7 @@ func twoSum(nums []int, target int) []int {
 	for i := 0; i < len(nums); i++ {
 		for j := 0; j < len(nums); j++ {
 			if i != j {
-				fmt.Printf("V:%d->%d\n", nums[i], nums[j])
-				if nums[i] + nums[j] == target {
+				if nums[i]+nums[j] == target {
 					x = i
 					y = j
 					break
