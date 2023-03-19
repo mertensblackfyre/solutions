@@ -19,7 +19,6 @@ public:
         while (l1->next != nullptr && l2->next != nullptr)
         {
             sum = l1->val + l2->val;
-            // std::cout << l1->val << "\n";
             std::cout << sum << "\n";  
             l1 = l1->next;
             l2 = l2->next;
