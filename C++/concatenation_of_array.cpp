@@ -12,6 +12,5 @@ int main (int argc, char *argv[])
     std::copy(nums.begin(),nums.end(),std::back_inserter(answer));
     std::copy(nums.begin(),nums.end(),std::back_inserter(answer));
 
-
    return 0;
 }

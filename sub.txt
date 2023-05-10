@@ -1,0 +1,14 @@
+Day 1:
+
+Easy
+https://leetcode.com/problems/single-number/submissions/
+
+Easy
+https://leetcode.com/problems/intersection-of-two-arrays/submissions/
+
+Easy
+https://leetcode.com/problems/is-happy/submissions/
+
+Easy
+https://leetcode.com/problems/two-sum/submissions/
+

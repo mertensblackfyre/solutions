@@ -1,5 +1,5 @@
 
-def isAnagram(self,s, t):
+def isAnagram(s, t):
         S = {}
         T = {}
         flag = False
