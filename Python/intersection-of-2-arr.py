@@ -1,7 +1,5 @@
-# [*] Given two integer arrays nums1 and nums2,
-# return an array of their intersection.
-# [*] Each element in the result must be unique and you may return
-# the result in any order.
+# [*] Given two integer arrays nums1 and nums2, return an array of their intersection.
+# [*] Each element in the result must be unique and you may return the result in any order.
 
 def intersection(nums1, nums2):
     # Init a new array 
@@ -16,5 +14,9 @@ def intersection(nums1, nums2):
 
     # Remove the duplicates using a set
     print(list(set(array)))
+
+
+
+
 
 intersection([4,9,5],[9,4,9,8,4])
