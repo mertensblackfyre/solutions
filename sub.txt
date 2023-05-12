@@ -23,3 +23,9 @@ Day 3:
 Easy
 https://leetcode.com/problems/first-unique-character-in-a-string/submissions/
 
+
+Day 4:
+1 Problem
+Easy
+https://leetcode.com/problems/longest-common-prefix/submissions/
+
