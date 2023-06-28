@@ -1,16 +1,13 @@
 def lengthOfLongestSubstring(s):
-    m = {}
-    count = 0
+    S = set()
+    l = 0
+    res = 0
+    for r in range(len(s)):
+        while s[r] in S:
+            S.remove(s[l])
+            l += 1
+        S.add(s[r])
+        res = max(res,r - l + 1)
+        
 
-    for i in range(len(s)):
-        if s[i] not in m:
-            m[s[i]] = 0
-            count += 1
-
-    
-        m[s[i]] +=  1
-
-    print(count)
-
-
-lengthOfLongestSubstring("pwwkew")
+lengthOfLongestSubstring("abcabcbb")
