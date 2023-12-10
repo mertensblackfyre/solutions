@@ -1,23 +1,27 @@
 #include <algorithm>
 #include <cctype>
+#include <cstdint>
 #include <fstream>
 #include <iostream>
 #include <string>
 #include <unordered_map>
 #include <vector>
 
-// pus28023@zbock.com
-std::vector<std::unordered_map<int, std::unordered_map<char, int>>> data;
+std::vector<std::unordered_map<int, std::vector<std::unordered_map<char, int>>>>
+    data;
 
-void parser(std::string str);
+std::vector<int> ans;
 
+const int red = 12;
+const int green = 13;
+const int blue = 14;
+
+int to_int(std::string str);
 int parse_game_id(std::string str);
-int parse_color(std::string str, std::string sub_str);
-
-void split_write(std::string str);
+void parse_color(std::string str, int game_id);
 int main(int argc, char *argv[]) {
 
-  std::ifstream file("input.txt");
+  std::ifstream file("test.txt");
 
   if (!file.is_open())
     std::cerr << "error opening the file." << std::endl;
@@ -25,89 +29,77 @@ int main(int argc, char *argv[]) {
   std::string line;
 
   while (std::getline(file, line)) {
-    parser(line);
+    parse_game_id(line);
   }
 
-  int sum = 0;
-  for (const auto &outerMap : data) {
-    for (const auto &innerMap : outerMap) {
-      auto p = innerMap.second;
-      if (p['r'] < 12 && p['b'] < 14 && p['g'] < 13) {
-        std::cout << "Game " << innerMap.first << std::endl;
-        sum += innerMap.first;
-      }
-    }
+  for (auto id : ans) {
+    std::cout << id << std::endl;
   }
-
-  std::cout << "Sum: " << sum << std::endl;
   return 0;
-}
-
-void parser(std::string str) {
-
-  int game_num = parse_game_id(str);
-  int blue_num = parse_color(str, "blue");
-  int green_num = parse_color(str, "green");
-  int red_num = parse_color(str, "red");
-
-  std::unordered_map<int, std::unordered_map<char, int>> innerMap;
-  innerMap[game_num]['b'] = blue_num;
-  innerMap[game_num]['g'] = green_num;
-  innerMap[game_num]['r'] = red_num;
-
-  data.push_back(innerMap);
 }
 
 int parse_game_id(std::string str) {
 
-  int n = 5;
-  int digit = 0;
+  int index = 0;
+  std::string digit = "";
 
-  std::string sub_str = "Game";
-  size_t pos = str.find(sub_str);
+  for (char ch : str) {
+    if (ch == ':')
+      break;
+    if (isdigit(ch))
+      digit += ch;
 
-  try {
-    if (pos != std::string::npos) {
-      std::string ch = "";
-      if (std::isdigit(str[pos + n + 1])) {
-        ch = std::string(1, str[pos + n]) + std::string(1, str[pos + n + 1]);
-
-        digit += std::stoi(ch);
-      } else {
-        ch = std::string(1, str[pos + n]);
-        digit += std::stoi(ch);
-      }
-    }
-  } catch (const std::invalid_argument &e) {
-    std::cerr << "Invalid argument: " << e.what() << std::endl;
-  } catch (const std::out_of_range &e) {
-    std::cerr << "Out of range: " << e.what() << std::endl;
+    index++;
   }
 
-  return digit;
+  int d = to_int(digit);
+
+  if (index < str.size())
+    str.erase(str.begin(), str.begin() + index + 2);
+
+  parse_color(str, d);
+  return d;
 }
-int parse_color(std::string str, std::string sub_str) {
 
-  int n = -2;
-  int digit = 0;
-
-  size_t pos = str.find(sub_str);
+int to_int(std::string str) {
+  int n;
 
   try {
-    while (pos < str.length()) {
-      std::string ch = "";
-      ch = std::string(1, str[pos + n - 1]) + std::string(1, str[pos + n]);
-      ch.erase(std::remove_if(ch.begin(), ch.end(), ::isspace), ch.end());
-      digit += std::stoi(ch);
-
-      str.erase(pos, sub_str.length());
-      pos = str.find(sub_str);
-    }
+    n = std::stoi(str);
   } catch (const std::invalid_argument &e) {
-    std::cerr << "Invalid argument: " << e.what() << std::endl;
-  } catch (const std::out_of_range &e) {
-    std::cerr << "Out of range: " << e.what() << std::endl;
+    return -1;
+  }
+  return n;
+}
+
+void parse_color(std::string str, int game_id) {
+
+  std::string digit = "";
+  std::unordered_map<char, int> data;
+  for (char ch : str) {
+
+    if (isdigit(ch))
+      digit += ch;
+
+    if (isspace(ch))
+      continue;
+
+    if (ch == 'r' || ch == 'g' || ch == 'b') {
+      data[ch] = to_int(digit);
+      digit.clear();
+    }
+
+    if (ch == ';') {
+      if (data['r'] <= red && data['g'] <= green && data['b'] <= blue) {
+        ans.push_back(game_id);
+        break;
+      } else if (data['r'] > red || data['g'] > green || data['b'] > blue) {
+        break;
+      }
+      digit.clear();
+      data.clear();
+    }
   }
 
-  return digit;
+  return;
 }
