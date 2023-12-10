@@ -13,17 +13,18 @@ void parser(std::string str);
 
 int parse_game_id(std::string str);
 int parse_color(std::string str, std::string sub_str);
+
+void split_write(std::string str);
 int main(int argc, char *argv[]) {
 
   std::ifstream file("input.txt");
 
   if (!file.is_open())
-    std::cerr << "Error opening the file." << std::endl;
+    std::cerr << "error opening the file." << std::endl;
 
   std::string line;
 
   while (std::getline(file, line)) {
-    int idx = 0;
     parser(line);
   }
 
@@ -32,18 +33,9 @@ int main(int argc, char *argv[]) {
     for (const auto &innerMap : outerMap) {
       auto p = innerMap.second;
       if (p['r'] < 12 && p['b'] < 14 && p['g'] < 13) {
-
         std::cout << "Game " << innerMap.first << std::endl;
         sum += innerMap.first;
       }
-      /*
-         std::endl;
-
-              std::cout << "Game " << innerMap.first << ": " << p['b'] <<
-         std::endl; std::cout << "Game " << innerMap.first << ": " << p['g'] <<
-         std::endl;
-
-      */
     }
   }
 
