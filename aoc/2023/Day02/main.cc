@@ -7,9 +7,6 @@
 #include <unordered_map>
 #include <vector>
 
-std::vector<std::unordered_map<int, std::vector<std::unordered_map<char, int>>>>
-    data;
-
 std::vector<int> ans;
 
 const int red = 12;
@@ -19,9 +16,11 @@ const int blue = 14;
 int to_int(std::string str);
 int parse_game_id(std::string str);
 void parse_color(std::string str, int game_id);
+
 int main(int argc, char *argv[]) {
 
-  std::ifstream file("test.txt");
+  std::ifstream file("input.txt");
+  int sum = 0;
 
   if (!file.is_open())
     std::cerr << "error opening the file." << std::endl;
@@ -32,9 +31,11 @@ int main(int argc, char *argv[]) {
     parse_game_id(line);
   }
 
-  for (auto id : ans) {
-    std::cout << id << std::endl;
-  }
+  for (auto a : ans)
+    sum += a;
+
+  std::cout << sum << std::endl;
+
   return 0;
 }
 
@@ -62,6 +63,7 @@ int parse_game_id(std::string str) {
 }
 
 int to_int(std::string str) {
+
   int n;
 
   try {
@@ -75,7 +77,7 @@ int to_int(std::string str) {
 void parse_color(std::string str, int game_id) {
 
   std::string digit = "";
-  std::unordered_map<char, int> data;
+
   for (char ch : str) {
 
     if (isdigit(ch))
@@ -84,22 +86,26 @@ void parse_color(std::string str, int game_id) {
     if (isspace(ch))
       continue;
 
-    if (ch == 'r' || ch == 'g' || ch == 'b') {
-      data[ch] = to_int(digit);
+    if (ch == 'r') {
+      if (to_int(digit) > red)
+        return;
       digit.clear();
     }
 
-    if (ch == ';') {
-      if (data['r'] <= red && data['g'] <= green && data['b'] <= blue) {
-        ans.push_back(game_id);
-        break;
-      } else if (data['r'] > red || data['g'] > green || data['b'] > blue) {
-        break;
-      }
+    if (ch == 'b') {
+      if (to_int(digit) > blue)
+        return;
       digit.clear();
-      data.clear();
+    }
+
+    if (ch == 'g') {
+      if (to_int(digit) > green)
+        return;
+      digit.clear();
     }
   }
+
+  ans.push_back(game_id);
 
   return;
 }

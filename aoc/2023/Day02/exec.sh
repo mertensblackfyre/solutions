@@ -1,4 +1,4 @@
 #!/bin/zsh
 
-g++ try2.cc -o try
-./try
+g++ main.cc -o main
+./main
