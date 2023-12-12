@@ -1,0 +1,33 @@
+  // Iterate over the adjacentPoints vector
+    for (const auto& point : adjacentPoints) {
+        // Iterate over the elements of each point
+        std::cout << "[";
+        for (const auto& coordinate : point) {
+            std::cout << coordinate << ", ";
+        }
+        std::cout << "]" << std::endl;
+    }
+
+
+
+  const int rows = gridRows.size();
+  const int cols = (rows > 0) ? gridRows[0].size() : 0;
+
+  for (int i = 0; i < rows; ++i) {
+    for (int j = 0; j < cols; ++j) {
+      grid[i][j] = gridRows[i][j];
+    }
+  }
+
+  for (int i = 0; i < rows; ++i) {
+
+    std::string digit = "";
+    for (int j = 0; j < cols; ++j) {
+      std::cout << grid[i][j] << "";
+      if (isdigit(grid[i][j])) {
+        digit += grid[i][j];
+      } else {
+      }
+    }
+  }
+
