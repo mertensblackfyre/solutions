@@ -4,7 +4,6 @@
 #include <fstream>
 #include <iostream>
 #include <string>
-#include <unordered_map>
 #include <vector>
 
 std::vector<int> ans;
@@ -13,33 +12,27 @@ const int red = 12;
 const int green = 13;
 const int blue = 14;
 
-int to_int(std::string str);
-int parse_game_id(std::string str);
-void parse_color(std::string str, int game_id);
+class Soultion {
+public:
+  int to_int(std::string str);
+  int parse_game_id(std::string str);
+  void solver_part_one(std::string str, int game_id);
+  void solver_part_two(std::string str, int game_id);
+  int find_min(std::vector<int> nums);
+};
 
-int main(int argc, char *argv[]) {
+int Soultion::to_int(std::string str) {
+  int n;
 
-  std::ifstream file("input.txt");
-  int sum = 0;
-
-  if (!file.is_open())
-    std::cerr << "error opening the file." << std::endl;
-
-  std::string line;
-
-  while (std::getline(file, line)) {
-    parse_game_id(line);
+  try {
+    n = std::stoi(str);
+  } catch (const std::invalid_argument &e) {
+    return -1;
   }
-
-  for (auto a : ans)
-    sum += a;
-
-  std::cout << sum << std::endl;
-
-  return 0;
+  return n;
 }
 
-int parse_game_id(std::string str) {
+int Soultion::parse_game_id(std::string str) {
 
   int index = 0;
   std::string digit = "";
@@ -58,23 +51,11 @@ int parse_game_id(std::string str) {
   if (index < str.size())
     str.erase(str.begin(), str.begin() + index + 2);
 
-  parse_color(str, d);
+  solver_part_two(str, d);
   return d;
 }
 
-int to_int(std::string str) {
-
-  int n;
-
-  try {
-    n = std::stoi(str);
-  } catch (const std::invalid_argument &e) {
-    return -1;
-  }
-  return n;
-}
-
-void parse_color(std::string str, int game_id) {
+void Soultion::solver_part_one(std::string str, int game_id) {
 
   std::string digit = "";
 
@@ -105,7 +86,78 @@ void parse_color(std::string str, int game_id) {
     }
   }
 
-  ans.push_back(game_id);
-
   return;
+}
+
+int Soultion::find_min(std::vector<int> nums) {
+
+  int max = 0;
+
+  for (auto n : nums) 
+    if (n != -1)
+      if (n > max)
+        max = n;
+
+  return max;
+}
+void Soultion::solver_part_two(std::string str, int game_id) {
+
+  std::string digit = "";
+  std::vector<int> r;
+  std::vector<int> b;
+  std::vector<int> g;
+
+  for (char ch : str) {
+
+    if (isdigit(ch))
+      digit += ch;
+
+    if (isspace(ch))
+      continue;
+
+    if (ch == 'r') {
+      r.push_back(to_int(digit));
+      digit.clear();
+    }
+
+    if (ch == 'b') {
+      b.push_back(to_int(digit));
+      digit.clear();
+    }
+
+    if (ch == 'g') {
+      g.push_back(to_int(digit));
+      digit.clear();
+    }
+  }
+
+  int max_r = find_min(r);
+  int max_b = find_min(b);
+  int max_g = find_min(g);
+  int product = max_b * max_g * max_r;
+
+  ans.push_back(product);
+}
+
+int main(int argc, char *argv[]) {
+
+  Soultion solver;
+  int sum = 0;
+
+  std::ifstream file("input.txt");
+
+  if (!file.is_open())
+    std::cerr << "error opening the file." << std::endl;
+
+  std::string line;
+
+  while (std::getline(file, line)) {
+    solver.parse_game_id(line);
+  }
+
+  for (auto a : ans)
+    sum += a;
+
+  std::cout << sum << std::endl;
+  return 0;
 }
