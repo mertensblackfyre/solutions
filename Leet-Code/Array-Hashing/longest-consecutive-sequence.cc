@@ -22,8 +22,10 @@ public:
       }
     }
 
+ 
     std::sort(n.begin(),n.end());
 
+    std::cout << n[n.size() - 1] <<std::endl;
     return n[n.size() - 1];
   }
 };
