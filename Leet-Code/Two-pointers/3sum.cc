@@ -1,45 +1,46 @@
+
+#include <algorithm>
 #include <iostream>
+#include <unordered_map>
 #include <vector>
 
 class Solution {
 public:
-  int threeSum(std::vector<int> &nums) {
+  std::vector<std::vector<int>> threeSum(std::vector<int> &nums) {
 
-    int i = 0;
-    int j = i + 1;
-    int k = j + 1;
+    std::sort(nums.begin(), nums.end());
 
-    while (i < nums.size()) {
+    std::vector<std::vector<int>> answer = {};
 
-      if ((i != j && i != k && j != k) && nums[i] + nums[j] + nums[k] == 0) {
-        std::cout << "1st: " << nums[i] << " 2nd: " << nums[j]
-                  << " 3rd: " << nums[k] << std::endl;
-        j = 0;
-        k = j + 1;
-        i++;
-      } else {
-        j = 0;
-        k = j + 1;
-        i++;
-      }
-      if (i < nums.size() && k < nums.size() && j < nums.size()) {
-        k++;
-        j++;
+    for (int i = 0; i < nums.size(); i++) {
+
+      int l = i + 1;
+      int r = nums.size() - 1;
+      if (i > 0 && nums[i] == nums[i - 1]) {
+        continue;
       }
 
-      std::cout << "1st: " << nums[i] << " 2nd: " << nums[j]
-                << " 3rd: " << nums[k] << std::endl;
+      while (l > r) {
+
+        int t = nums[i] + nums[l] + nums[r];
+        if (t > 0)
+          r--;
+        else if (t < 0)
+          l++;
+        else {
+          answer.push_back({i, l, r});
+          l++;
+          while (nums[l] == nums[l - 1] && l > r)
+            l++;
+        }
+      }
     }
-    return 1;
+    return answer;
   }
 };
-
 int main() {
 
-  Solution p;
+  Solution x;
   std::vector<int> nums = {-1, 0, 1, 2, -1, -4};
-  // std::string case_one_s = "A man, a plan, a canal: Panama";
-  // std::string case_two_s = "race a car";
-
-  p.threeSum(nums);
+  x.threeSum(nums);
 }

@@ -89,6 +89,7 @@ std::string replace_string(std::string str) {
   }
 
   std::ofstream outputFile("t2.txt", std::ios::app);
+
   if (outputFile.is_open()) {
     outputFile << str << std::endl;
     outputFile.close();
