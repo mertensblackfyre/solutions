@@ -1,5 +1,6 @@
 
 #include <iostream>
+#include <stack>
 #include <unordered_map>
 #include <vector>
 
@@ -7,24 +8,22 @@ class Solution {
 public:
   bool isValid(std::string s) {
 
-    std::vector<char> saa;
-    std::unordered_map<std::string, std::string> hash = {
-        {")", "("},
-        {"]", "["},
-        {"}", "{"},
-
+    std::stack<char> saa;
+    std::unordered_map<char, char> hash = {
+        {')', '('},
+        {']', '['},
+        {'}', '{'},
     };
 
     for (auto c : s) {
-      for (auto p : hash) {
-          if (saa.size() > 0 && saa[-1]) {
-          
-          }
-        saa.push_back(c);
+      if (saa.size() != 0 && hash[c] == saa.top()) {
+        saa.pop();
+        continue;
       }
+      saa.push(c);
     }
 
-    return true;
+    return saa.empty();
   }
 };
 
@@ -32,7 +31,7 @@ int main() {
 
   Solution x;
 
-  std::string s = "()";
+  std::string s = "(}";
   x.isValid(s);
 
   return 0;
