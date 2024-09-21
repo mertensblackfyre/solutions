@@ -14,7 +14,7 @@ public:
         encoded_str += s;
         continue;
       }
-      encoded_str += s + "+";
+      encoded_str += s + "*";
       count++;
     };
 
@@ -29,18 +29,20 @@ public:
     int i = 0;
 
     while (i <= s.size()) {
-      if (s[i] == '+') {
-        std::cout << word << std::endl;
-        words.push_back(word);
-        word = "";
-      } else {
+      if (s[i] != '*') {
         word += s[i];
+        i++;
+        continue;
       };
+      words.push_back(word);
+      std::cout << word << std::endl;
+        word.clear();
+
       i++;
     }
 
-    for (std::string ss : words) {
-      // std::cout << ss << std::endl;
+    for (auto ss : words) {
+      std::cout << ss << std::endl;
     }
     return words;
   }

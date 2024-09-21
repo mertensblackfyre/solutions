@@ -1,42 +1,27 @@
-#include <algorithm>
 #include <iostream>
-#include <map>
-#include <unordered_map>
 #include <vector>
 
 class Solution {
 public:
   std::vector<int> productExceptSelf(std::vector<int> &nums) {
+    std::vector<int> result(nums.size());
+    int pre = 1;
+    int post = 1;
 
-    std::vector<int> result;
+    result[0] = pre;
+    for (int i = 1; i < nums.size(); ++i) {
+      pre *=  nums[i - 1];
+      result[i] = pre;
+    };
 
-    int ignore = 0;
-    int product = 1;
-
-    for (int i = 1; ignore < nums.size(); i++) {
-
-      if (result.size() == nums.size())
-        break;
-
-      if (i == nums.size()) {
-        i = 0;
-        ignore++;
-        result.push_back(product);
-        product = 1;
-      }
-
-      if (i == ignore)
-        continue;
-
-      product *= nums[i];
-    }
-
-    for (int i = 0; i < result.size(); ++i) {
-      std::cout << result[i] << std::endl;
-    }
+    result[nums.size() - 1] = post * result[nums.size() - 1];
+    for (int i = nums.size() - 1; i >= 0; --i) {
+      post *=  nums[i];
+      result[i - 1] *= post;
+    };
 
     return result;
-  }
+  };
 };
 
 int main() {
@@ -45,5 +30,5 @@ int main() {
 
   std::vector<int> case1 = {1, 2, 3, 4};
   std::vector<int> case2 = {-1, 1, 0, -3, 3};
-  test.productExceptSelf(case2);
+  test.productExceptSelf(case1);
 }
