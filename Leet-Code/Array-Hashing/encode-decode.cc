@@ -28,21 +28,22 @@ public:
 
     int i = 0;
 
-    while (i <= s.size()) {
-      if (s[i] != '*') {
+    while (i < s.size()) {
+      while (s[i] != '*' && s[i]) {
+        if (i == s.size() - 1) {
+          break;
+        }
         word += s[i];
         i++;
         continue;
-      };
+      }
       words.push_back(word);
-      std::cout << word << std::endl;
-        word.clear();
-
-      i++;
+      //  std::cout << word << std::endl;
+      word.clear();
     }
 
     for (auto ss : words) {
-      std::cout << ss << std::endl;
+      // std::cout << ss << std::endl;
     }
     return words;
   }
