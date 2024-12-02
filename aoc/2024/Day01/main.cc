@@ -4,15 +4,54 @@
 #include <cstdlib>
 #include <fstream>
 #include <iostream>
+#include <random>
+#include <string>
 #include <vector>
 
-class Solver {
+class Solution {
 public:
   std::vector<int> results;
   std::vector<int> first;
   std::vector<int> second;
 
-  void finisher() {
+  int string_to_int(std::string str) {
+    int num = 0;
+    try {
+      num = std::stoi(str);
+    } catch (...) {
+      return 0;
+    }
+    return num;
+  };
+
+  void part_two_solver() {
+
+    int answer = 0;
+    int sim_score = 0;
+    std::sort(first.begin(), first.end());
+    std::sort(second.begin(), second.end());
+
+    for (int f : first) {
+
+      int n = 0;
+      for (int s : second) {
+        if (f == s) {
+          sim_score++;
+        }
+      }
+      n = f * sim_score;
+      results.push_back(n);
+      sim_score = 0;
+    }
+
+    for (int a : results) {
+      answer += a;
+    }
+
+    std::cout << answer << std::endl;
+  };
+
+  void part_one_solver() {
     int answer = 0;
     while (!first.empty() && !second.empty()) {
       int result = 0;
@@ -48,40 +87,35 @@ public:
     char ch;
     std::string num = "";
     while (file.get(ch)) {
-
       if (isdigit(ch)) {
         num += ch;
-        // file.get(ch);
-      }else{
-
-          
-
-      }
-      if (isspace(ch)) {
-
-        in_first = false;
-      }
-      if (in_first) {
-        int f = ch - '0';
-        first.push_back(f);
-        in_first = false;
+        continue;
       } else {
-        int s = ch - '0';
-        second.push_back(s);
-        in_first = true;
+        if (in_first) {
+          int f = string_to_int(num);
+          first.push_back(f);
+          in_first = false;
+          num = "";
+        } else {
+          int s = string_to_int(num);
+          second.push_back(s);
+          in_first = true;
+          num = "";
+        }
       }
     }
-
     file.close();
   };
 };
 
 int main(int argc, char *argv[]) {
 
-  Solver init;
+  Solution init;
 
-  init.read_file_line("input.txt");
+  //init.read_file_line("input.txt");
 
-  // init.finisher();
+  init.read_file_line("input2.txt");
+ // init.part_one_solver();
+ init.part_two_solver();
   return 0;
 }
