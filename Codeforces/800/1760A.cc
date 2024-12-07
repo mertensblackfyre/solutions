@@ -1,4 +1,3 @@
-
 #include <iostream>
 
 int string_to_int(std::string str) {
@@ -13,6 +12,17 @@ int string_to_int(std::string str) {
 
 void solver(int a, int b, int c) {
 
+  if ((a > b && a < c) || (a < b && a > c)) {
+    std::cout << a << std::endl;
+  }
+
+  if ((b > a && b < c) || (b < a && b > c)) {
+    std::cout << b << std::endl;
+  }
+
+  if ((c > a && c < b) || (c < a && c > b)) {
+    std::cout << c << std::endl;
+  }
 }
 int main(int argc, char *argv[]) {
 
