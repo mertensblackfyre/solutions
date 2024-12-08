@@ -12,15 +12,12 @@ int string_to_int(std::string str) {
 
 void solver(int a, int b, int c, int d) {
   int ans = 0;
-
   if (a < b) {
     ans++;
   }
-
   if (a < c) {
     ans++;
   }
-
   if (a < d) {
     ans++;
   }
