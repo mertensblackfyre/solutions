@@ -33,7 +33,6 @@ void solver(int a, std::string b) {
     }
     if (isupper(b[i])) {
       std::cout << "NO" << std::endl;
-      // break;
       return;
     }
   };
@@ -48,7 +47,6 @@ int main(int argc, char *argv[]) {
 
   std::string a, b;
   for (int i = 0; i < n; ++i) {
-    int x = 0;
 
     std::cin >> a;
     std::cin >> b;
