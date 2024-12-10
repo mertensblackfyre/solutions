@@ -1,50 +1,38 @@
 #include <iostream>
 #include <string>
 
-std::string swap(char a, char b, char c) {
+std::string swap(std::string s) {
 
-  // std::cout << a << b << c;
-  std::string str = "";
-  char tmp = a;
-  a = b;
-  b = tmp;
-
-  str += c;
-  str += a;
-  str += b;
-  std::cout << str << std::endl;
-  return str;
+  if (s[0] == 'a' && (s[1] != 'b' || s[2] != 'c')) {
+    char tmp = s[1];
+    s[1] = s[2];
+    s[2] = tmp;
+  }
+  if (s[0] == 'b' && s[1] == 'a') {
+    char tmp = s[0];
+    s[0] = s[1];
+    s[1] = tmp;
+  }
+  if (s[0] == 'c' && s[2] == 'a') {
+    char tmp = s[0];
+    s[0] = s[2];
+    s[2] = tmp;
+  }
+  return s;
 };
-
 void solver(std::string a) {
 
-if (a == "abc") {
- // std::cout << "YES" << std::endl;
-  return;
-}
-
-
-/*
-if (swap(a[0], a[1], a[2]) == "abc") {
-  //std::cout << "YES" << std::endl;
-  return;
-}
-
-if (swap(a[1], a[2], a[0]) == "abc") {
-  //std::cout << "YES" << std::endl;
-  return;
-}
-  if (swap(a[0], a[2], a[1]) == "abc") {
-    // std::cout << "YES" << std::endl;
+  if (a == "abc") {
+    std::cout << "YES" << std::endl;
     return;
   }
-  */
-
-if (swap(a[1], a[2], a[0]) == "abc") {
-  //std::cout << "YES" << std::endl;
-  return;
-}
-  // std::cout << "NO" << std::endl;
+  if (swap(a) == "abc") {
+    std::cout << "YES" << std::endl;
+    return;
+  } else {
+    std::cout << "NO" << std::endl;
+    return;
+  }
 }
 int main(int argc, char *argv[]) {
 
