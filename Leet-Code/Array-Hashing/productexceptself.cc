@@ -1,26 +1,25 @@
-#include <iostream>
 #include <vector>
 
 class Solution {
 public:
   std::vector<int> productExceptSelf(std::vector<int> &nums) {
-    std::vector<int> result(nums.size());
-    int pre = 1;
-    int post = 1;
+    std::vector<int> pre(nums.size());
 
-    result[0] = pre;
+    int prefix = 1;
+    int suffix = 1;
+
+    pre[0] = prefix;
     for (int i = 1; i < nums.size(); ++i) {
-      pre *=  nums[i - 1];
-      result[i] = pre;
+      prefix *= nums[i - 1];
+      pre[i] = prefix;
     };
 
-    result[nums.size() - 1] = post * result[nums.size() - 1];
+    pre[nums.size() - 1] = suffix * pre[nums.size() - 1];
     for (int i = nums.size() - 1; i >= 0; --i) {
-      post *=  nums[i];
-      result[i - 1] *= post;
+      suffix *= nums[i];
+      pre[i - 1] = suffix * pre[i - 1];
     };
-
-    return result;
+    return pre;
   };
 };
 
