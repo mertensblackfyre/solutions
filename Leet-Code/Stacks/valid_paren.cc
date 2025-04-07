@@ -8,7 +8,7 @@ class Solution {
 public:
   bool isValid(std::string s) {
 
-    std::stack<char> saa;
+    std::stack<char> stack;
     std::unordered_map<char, char> hash = {
         {')', '('},
         {']', '['},
@@ -16,15 +16,15 @@ public:
     };
 
     for (auto c : s) {
-      if (saa.size() != 0 && hash[c] == saa.top()) {
-        saa.pop();
-        continue;
-      }
-      saa.push(c);
-    }
 
-    return saa.empty();
-  }
+      if (stack.top() == hash[c]) {
+        stack.pop();
+      } else {
+        stack.push(c);
+      }
+    }
+    return stack.empty();
+  };
 };
 
 int main() {

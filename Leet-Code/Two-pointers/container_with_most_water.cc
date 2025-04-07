@@ -1,36 +1,35 @@
 #include <algorithm>
-#include <iostream>
 #include <vector>
+
 class Solution {
 
 public:
-  Solution() {
-    std::ios_base::sync_with_stdio(false);
-    std::cin.tie(NULL);
-    std::cout.tie(NULL);
-  }
-  int maxArea(std::vector<int> &height) {
+  int maxArea(std::vector<int> height) {
 
-    int res = 0;
+    int max = 0;
     int p1 = 0;
     int p2 = height.size() - 1;
 
     while (p1 < p2) {
       int area = (p2 - p1) * std::min(height[p1], height[p2]);
-      if (height[p2] > height[p1]) {
-        p1++;
-      } else {
+      if (height[p1] > height[p2]) {
         p2--;
+      } else {
+        p1++;
       }
-      res = std::max(res, area);
-    }
-    return res;
-  }
+
+      max = std::max(max, area);
+    };
+
+    return max;
+  };
 };
 
 int main() {
 
   Solution p;
   std::vector<int> nums = {1, 8, 6, 2, 5, 4, 8, 3, 7};
-  p.maxArea(nums);
-}
+
+  std::vector<int> nums1 = {1, 2, 1};
+  p.maxArea(nums1);
+};
