@@ -1,45 +1,101 @@
-
 #include <cctype>
-#include <iostream>
+#include <cmath>
 #include <stack>
 #include <string>
 #include <vector>
 
 class Solution {
 public:
+  int helper(std::stack<int> &stack, std::string operation, int ans) {
+
+    if (operation == "+") {
+      int s, f = 0;
+      f = stack.top();
+      stack.pop();
+
+      s = stack.top();
+      stack.pop();
+      ans = s + f;
+      return ans;
+    }
+
+    if (operation == "-") {
+      int s, f = 0;
+      f = stack.top();
+      stack.pop();
+
+      s = stack.top();
+      stack.pop();
+
+      ans = s - f;
+
+      return ans;
+    }
+
+    if (operation == "*") {
+      int s, f;
+      f = stack.top();
+      stack.pop();
+      s = stack.top();
+      stack.pop();
+      ans = f * s;
+      return ans;
+    }
+
+    if (operation == "/") {
+      int s, f;
+      f = stack.top();
+      stack.pop();
+
+      s = stack.top();
+      stack.pop();
+
+      ans = s / f;
+      return ans;
+    }
+
+    return ans;
+  };
   int evalRPN(std::vector<std::string> tokens) {
 
     int ans = 0;
     std::stack<int> stack;
 
-    for (size_t i = 0; i < tokens.size() - 1; i++) {
-      int n = std::stoi(tokens[i]);
-      if (std::isdigit(n)) {
+    if (tokens.size() == 1) {
+      int n;
+      try {
+        n = std::stoi(tokens[0]);
         stack.push(n);
-      } else {
-        if (tokens[i] == "+") {
-          while (!stack.empty()) {
-            ans += stack.top();
-            stack.pop();
-          }
-        }
- if (tokens[i] == "*") {
-          while (!stack.empty()) {
-            ans *= stack.top();
-            stack.pop();
-          }
-        }
+      } catch (...) {
+        return 0;
       }
+      return n;
+    }
 
-      return 0;
+    for (size_t i = 0; i < tokens.size(); i++) {
+      int n;
+      try {
+        n = std::stoi(tokens[i]);
+        stack.push(n);
+      } catch (...) {
+        ans = helper(stack, tokens[i], ans);
+        stack.push(ans);
+      }
     };
+    return stack.top();
   };
-  int main() {
+};
+int main() {
 
-    Solution x;
+  Solution x;
 
-    std::vector<std::string> s = {"2", "1", "+", "3", "*"};
-    x.evalRPN(s);
+  std::vector<std::string> s3 = {"0", "3", "/"};
+  std::vector<std::string> s = {"2", "1", "+", "3", "*"};
+  std::vector<std::string> s1 = {"4", "13", "5", "/", "+"};
 
-    return 0;
-  }
+  std::vector<std::string> s2 = {"10", "6", "9",  "3", "+", "-11", "*",
+                                 "/",  "*", "17", "+", "5", "+"};
+  x.evalRPN(s3);
+
+  return 0;
+}
