@@ -1,4 +1,3 @@
-#include <algorithm>
 #include <iostream>
 #include <vector>
 
@@ -7,50 +6,33 @@ public:
   std::string simplifyPath(std::string path) {
 
     std::vector<std::string> stack;
-    std::string ans = "";
-    std::string str = "";
+    std::string curr = "";
 
-    if (path[path.size() - 1] == '/') {
-      path[path.size() - 1] = '\0';
-    };
+    for (auto s : path + "/") {
 
-    if (path == "/../") {
-      std::cout << "/" << std::endl;
-      return "/";
-    }
+      if (s == '/') {
+        if (curr == "..") {
+          if (!stack.empty())
+            stack.pop_back();
+        } else if (!curr.empty() && curr != ".") {
 
-    for (size_t i = 0; i < path.size(); i++) {
-      if (path[i] == '/') {
-        if (str == "..") {
-          stack.pop_back();
-          str.clear();
-          continue;
-        };
-        if (str == "...") {
-          stack.push_back(str);
-          str.clear();
-          continue;
-        };
+          stack.push_back(curr);
+        }
+        curr.clear();
+      } else {
 
-        stack.push_back(str);
-        str.clear();
-        continue;
+        curr += s;
       }
-      str += path[i];
-    };
-
-    //  std::cout << str << std::endl;
-
-    if (str != ".") {
-
-      stack.push_back(str);
     }
-    for (std::string x : stack) {
 
-      std::cout << x << std::endl;
+    std::string result = "/";
+    for (int i = 0; i < stack.size(); ++i) {
+      if (i > 0)
+        result += "/";
+      result += stack[i];
     }
-    // std::cout << std::endl;
-    return "";
+
+    return result;
   }
 };
 
@@ -64,5 +46,7 @@ int main() {
   std::string s2 = "/home//foo/";
   std::string s3 = "/../";
   std::string s4 = "/.../a/../b/c/../d/./";
-  x.simplifyPath(s4);
+
+  std::string s5 = "/../abc//./def/";
+  x.simplifyPath(s5);
 }
