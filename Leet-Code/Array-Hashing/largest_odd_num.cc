@@ -3,10 +3,10 @@
 
 class Solution {
 public:
-  int string_to_int(std::string str) {
-    int num = 0;
+  long int string_to_int(std::string str) {
+    long int num = 0;
     try {
-      num = std::stoi(str);
+      num = std::stoll(str); // Use stoll for 64-bit
     } catch (...) {
       return -1;
     }
@@ -20,7 +20,6 @@ public:
     for (char c : num) {
       int nn = string_to_int(n);
       if (nn % 2 != 0) {
-
         if (nn > max) {
           max = nn;
         };
@@ -38,7 +37,7 @@ public:
   };
   std::string largestOddNumber(std::string num) {
 
-    int n = string_to_int(num);
+    long int n = string_to_int(num);
     if (n % 2 != 0) {
 
       return num;
