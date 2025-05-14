@@ -21,14 +21,16 @@ public:
       return;
     };
 
-    if (sum > target) {
-      start++;
-      return;
-    }
-
     for (int i = start; i < nums.size(); i++) {
+      if (i > start && nums[i] == nums[i - 1]) {
+        continue;
+      }
+
+      if (sum > target) {
+        break;
+      }
       perm.push_back(nums[i]);
-      backtrack(i+1, nums, target, perm);
+      backtrack(i + 1, nums, target, perm);
       perm.pop_back();
     }
   };
@@ -36,11 +38,12 @@ public:
                                                 int target) {
     res.clear();
     std::vector<int> perm;
-    std::sort(candidates.begin(),candidates.end());
+    std::sort(candidates.begin(), candidates.end());
     backtrack(0, candidates, target, perm);
     return res;
   };
 };
+
 int main() {
 
   Solution x;
