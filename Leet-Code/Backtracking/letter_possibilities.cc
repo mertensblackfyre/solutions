@@ -4,38 +4,25 @@
 
 class Solution {
 public:
-  std::vector<std::vector<int>> res;
+  std::vector<std::string> res;
 
-  void backtrack(int start, std::string tiles, std::vector<std::string> &perm,
-                 std::vector<bool> &picks) {
-    /*
-        if (perm.size() == nums.size()) {
-        auto it = std::find(res.begin(), res.end(), perm);
-        if (it == res.end()) {
-          res.push_back(perm);
-          return;
-        }
-        return;
-      };
-  */
-    for (int i = 0; i < tiles.size(); i++) {
-      if (!picks[i]) {
-        std::string s;
-        s = s + tiles[i];
-        perm.push_back(s);
-        picks[i] = true;
-        backtrack(i, tiles, perm, picks);
-        perm.pop_back();
-        picks[i] = false;
-      }
-    }
+  void backtrack(int start, std::string tiles, std::string &perm) {
+
+  if (start >= tiles.size()) {
+    res.push_back(perm);
+    return;
+  };
+
+  perm.push_back(tiles[start]);
+  backtrack(start + 1, tiles, perm);
+  perm.pop_back();
+  backtrack(start + 1, tiles, perm);
   };
   int numTilePossibilities(std::string tiles) {
-    res.clear();
-    std::vector<std::string> perm;
-    std::vector<bool> picks(tiles.size(), false);
-    backtrack(0, tiles, perm, picks);
-    return 1;
+    // res.clear();
+    std::string perm;
+    backtrack(0, tiles, perm);
+    return res.size();
   };
 };
 
@@ -43,8 +30,9 @@ int main() {
 
   Solution x;
 
-  std::string tiles = "AAB";
-  x.numTilePossibilities(tiles);
+  std::string tiles = "AAABBC";
+  int w = x.numTilePossibilities(tiles);
 
+  std::cout << w << std::endl;
   return 0;
 }
