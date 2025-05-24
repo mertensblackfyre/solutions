@@ -1,28 +1,40 @@
 #include <algorithm>
 #include <iostream>
+#include <string>
 #include <vector>
 
 class Solution {
 public:
-  std::vector<std::string> res;
+  std::vector<std::vector<std::string>> res;
 
-  void backtrack(int start, std::string tiles, std::string &perm) {
-
-  if (start >= tiles.size()) {
-    res.push_back(perm);
-    return;
+  bool check_str(std::string input) {
+    std::string reversed_str = input;
+    std::reverse(reversed_str.begin(), reversed_str.end());
+    return reversed_str == input;
   };
+  void backtrack(int i, std::string s, std::vector<std::string> &perm) {
 
-  perm.push_back(tiles[start]);
-  backtrack(start + 1, tiles, perm);
-  perm.pop_back();
-  backtrack(start + 1, tiles, perm);
+    if (i >= s.size()) {
+      res.push_back(perm);
+      return;
+    }
+
+    for (size_t j = i; j < s.length(); j++) {
+      std::string sub = s.substr(i, j - i + 1);
+      if (check_str(sub)) {
+        perm.push_back(sub);
+        backtrack(j + 1, s, perm);
+        perm.pop_back();
+      }
+    }
   };
 
   std::vector<std::vector<std::string>> partition(std::string s) {
-        
-    };
-  
+    std::vector<std::string> perm;
+    backtrack(0, s, perm);
+
+    return res;
+  };
 };
 
 int main() {
@@ -30,7 +42,10 @@ int main() {
   Solution x;
 
   std::string tiles = "aab";
-  x.partition(tiles);
+  std::vector<std::vector<std::string>> res = x.partition(tiles);
+
 
   return 0;
 }
+
+// NOT LEGAL
