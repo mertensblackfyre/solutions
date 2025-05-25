@@ -1,55 +1,29 @@
-#include <algorithm>
 #include <iostream>
 #include <ostream>
 #include <string>
+#include <unordered_set>
 #include <vector>
 
 class Solution {
 public:
   std::string final = "";
-  std::string vector_combine(std::vector<std::string> s) {
 
-    std::string str;
-    for (auto r : s)
-      str += r;
+  void backtrack(int i, std::vector<std::string> nums, std::string &str,
+                 std::unordered_set<std::string> set) {
 
-    return str;
-  };
-
-  void backtrack(std::vector<bool> &pick, std::string combined_str,
-                 std::vector<std::string> nums, std::string &perm_str) {
-
-    if (perm_str.size() == nums.size()) {
-      auto it = std::find(nums.begin(), nums.end(), perm_str);
-      if (it == nums.end()) {
-        final = perm_str;
-      }
-
+    if (!set.contains(str)) {
+      final = str;
       return;
     };
 
-    for (size_t i = 0; i < combined_str.size(); i++) {
-
-      if (!pick[i]) {
-        pick[i] = true;
-        perm_str.push_back(combined_str[i]);
-        backtrack(pick, combined_str, nums, perm_str);
-        pick[i] = false;
-        perm_str.pop_back();
-      }
-    }
+    str[i] = (str[i] == '0') ? '1' : '0';
+    backtrack(i + 1, nums, str, set);
   };
   std::string findDifferentBinaryString(std::vector<std::string> &nums) {
-    std::string perm_str;
-    std::string combined_str = vector_combine(nums);
-    std::vector<bool> pick(combined_str.size(), false);
-    backtrack(pick, combined_str, nums, perm_str);
 
-    if (final == "" && nums[0] == "0") {
-      return "1";
-    } else {
-      return "0";
-    }
+    std::unordered_set<std::string> set(nums.begin(), nums.end());
+
+    backtrack(0, nums, nums[0], set);
 
     return final;
   }
