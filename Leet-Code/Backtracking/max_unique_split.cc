@@ -1,3 +1,4 @@
+#include <algorithm>
 #include <iostream>
 #include <ostream>
 #include <string>
@@ -5,12 +6,12 @@
 
 class Solution {
 public:
+  int max_c = 0;
   void backtrack(int i, std::string s, std::string &str,
                  std::unordered_set<std::string> &set) {
 
-    if (i >= s.size()){
- 
-
+    if (i >= s.size()) {
+        max_c = std::max(max_c,2);
       return;
     }
 

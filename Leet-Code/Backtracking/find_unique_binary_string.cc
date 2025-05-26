@@ -5,6 +5,7 @@
 #include <vector>
 
 class Solution {
+
 public:
   std::string final = "";
 
