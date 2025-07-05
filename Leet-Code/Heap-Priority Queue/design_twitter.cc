@@ -1,44 +1,53 @@
 #include <algorithm>
+#include <functional>
 #include <iostream>
+#include <queue>
 #include <unordered_map>
 #include <unordered_set>
+#include <utility>
 #include <vector>
 class Twitter {
 public:
-    std::unordered_map<int, std::vector<int>> db;
+  std::unordered_map<int, std::vector<int>> db;
 
-    std::unordered_map<int, std::unordered_set<int>> followers;
-    Twitter() {}
+  std::unordered_map<int, std::pair<int, int>> tweets;
+  std::unordered_map<int, std::unordered_set<int>> followers;
+  int recent = 0;
 
-    void postTweet(int userId, int tweetId) {
-        db[userId].push_back(tweetId);
-        if (followers[userId].empty()) {
-            followers[userId].insert(userId);
-        }
+  Twitter() {}
 
-        return;
+  void postTweet(int userId, int tweetId) {
+    // db[userId].push_back(tweetId);
+
+    tweets[userId].first = recent;
+    tweets[userId].second = tweetId;
+
+    if (followers[userId].empty()) {
+      followers[userId].insert(userId);
     }
 
-    std::vector<int> getNewsFeed(int userId) {
-        std::vector<int> tweets;
-        std::unordered_set<int> tmp = followers[userId];
-        for (int a : tmp) {
-            for (int b : db[a]) {
-                tweets.insert(tweets.begin(), b);
-            }
-        };
-        return tweets;
+    recent++;
+    return;
+  };
+
+  std::vector<int> getNewsFeed(int userId) {
+    std::vector<int> feeds;
+    std::priority_queue<int, std::vector<int>, std::greater<int>> pq;
+    int i = 0;
+    for (auto &it : tweets) {
+      pq.push(it.first);
     };
 
-    void follow(int followerId, int followeeId) {
-  
-        followers[followerId].insert(followeeId);
-    }
+    return feed;
+  };
 
-    void unfollow(int followerId, int followeeId) {
-       followers[followerId].erase(followeeId);
-       
-    }
+  void follow(int followerId, int followeeId) {
+    followers[followerId].insert(followeeId);
+  }
+
+  void unfollow(int followerId, int followeeId) {
+    followers[followerId].erase(followeeId);
+  }
 };
 int main() {
 
