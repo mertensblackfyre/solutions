@@ -1,10 +1,10 @@
-
 #include <algorithm>
 #include <iostream>
-#include <system_error>
 #include <vector>
+
 class Solution {
 public:
+  const int MOD = 1e9 + 7;
   int sum_array(std::vector<int> &nums) {
 
     if (nums.empty())
@@ -15,33 +15,23 @@ public:
       sum += n;
     };
 
-    return sum;
+    return sum % MOD;
   };
 
-  void backtrack(int start, std::vector<int> nums, std::vector<int> &results,
-                 std::vector<int> &sub) {
-
-    if (start >= nums.size()) {
-      int x = sum_array(sub);
-      results.push_back(x);
-      return;
-    }
-
-    sub.push_back(nums[start]);
-    backtrack(start + 1, nums, results, sub);
-    sub.pop_back();
-    backtrack(start + 1, nums, results, sub);
-  };
   int rangeSum(std::vector<int> &nums, int n, int left, int right) {
     std::vector<int> results;
     std::vector<int> sub;
 
-    backtrack(0, nums, results, sub);
+    for (size_t i = 0; i < n; i++) {
+      int cur = 0;
+      for (size_t j = i; j < n; j++) {
+        cur = cur + nums[j] % MOD;
+        sub.push_back(cur);
+      }
+    }
+    std::sort(sub.begin(), sub.end());
 
-    std::sort(results.begin(), results.end());
-
-    std::vector<int> sub_vector(results.begin() + left - 1,
-                                results.begin() + right + 1);
+    std::vector<int> sub_vector(sub.begin() + left - 1, sub.begin() + right);
 
     return sum_array(sub_vector);
   }
@@ -55,5 +45,7 @@ int main() {
   int l = 1;
   int n = 4;
   std::vector<int> nums = {1, 2, 3, 4};
+  // x.rangeSum(nums, n, l, r);
   std::cout << x.rangeSum(nums, n, l, r) << std::endl;
+  // std::cout << x.rangeSum(nums, n, l, r) << std::endl;
 };
